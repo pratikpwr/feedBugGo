@@ -1,0 +1,111 @@
+# enums
+
+enum Flavor {
+    dev,
+    qa,
+    prod,
+}
+
+enum TeamType {
+    product,
+    design,
+    frontend,
+    mobile,
+    backend,
+    cs,
+    finance,
+    testing,
+}
+
+enum TicketType {
+    bug,
+    improvement,
+}
+
+enum TicketPriority {
+    highest,
+    high,
+    medium,
+    low,
+    lowest,
+}
+
+enum TicketStatus {
+    created,
+    willDo,
+    notDoing,
+    inProgress,
+    nextTime,
+    done,
+}
+
+# Auth
+
+type User {
+    id: ID!
+    username: String!
+    phone: String
+}
+
+
+# Team
+
+type Team {
+    id: ID!
+    title: String!
+    team_type: TeamType!
+    lead: TeamMember
+    members: [TeamMember]
+}
+
+type TeamMember {
+    id: ID!
+    user: User!
+    skills: String
+    experience: Int
+    team_type: TeamType!
+}
+
+# Project
+
+type Project{
+    id: ID!
+    title: String!
+    description: String
+    flavor: Flavor
+    teams: [Team]
+}
+
+
+# Ticket
+
+type Ticket {
+    id: ID!
+    title: String!
+    project: Project!
+
+    description: String
+    improvement: String
+
+    ticket_type: TicketType
+    flavor: Flavor
+    priority: TicketPriority
+    status: TicketStatus!
+
+    occurrence_module: String
+    occurrence_element: String
+
+    device: String
+    device_model: String
+
+    created_by: TeamMember!
+    assigned_to: TeamMember
+
+    comments: [Comment]
+}
+
+type Comment {
+    comment: String!
+    comment_by: TeamMember!
+}
+
